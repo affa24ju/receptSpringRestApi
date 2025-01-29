@@ -21,6 +21,7 @@ public class ReceipeController {
         this.receipeService = receipeService;
     }
 
+    //Hämta alla favorit recept
     @GetMapping
     public List<Receipe> getAllFavorites(){
         return receipeService.readFavorites();

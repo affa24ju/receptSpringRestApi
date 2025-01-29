@@ -1,10 +1,12 @@
 package com.receptSpringRestApi.api.model;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Receipe {
     private int id;
     private String name;
     private String imageUrl;
     private String instructions;
+
     public Receipe(int id, String name, String imageUrl, String instructions) {
         this.id = id;
         this.name = name;
