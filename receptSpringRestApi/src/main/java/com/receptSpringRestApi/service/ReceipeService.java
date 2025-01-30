@@ -1,17 +1,77 @@
 package com.receptSpringRestApi.service;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.receptSpringRestApi.api.model.Receipe;
+import org.springframework.stereotype.Service;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReceipeService {
 
-    private List<Receipe> favorites;
 
-    public List<Receipe> readFavorites(){
+    private static final String FILE_PATH = "favorites.json";
+    private List<Receipe> favorites;
+    private final ObjectMapper objectMapper;
+
+    public ReceipeService() {
+        this.objectMapper = new ObjectMapper();
+        this.favorites = loadFavoritesFromFile();
+    }
+
+    // Ladda favoriter från fil
+    private List<Receipe> loadFavoritesFromFile() {
+        try {
+            File file = new File(FILE_PATH);
+            if (file.exists()) {
+                // Läser JSON-data från filen
+                return objectMapper.readValue(file, objectMapper.getTypeFactory().constructCollectionType(List.class, Receipe.class));
+            } else {
+                return new ArrayList<>(); // Om filen inte finns, skapar en tom lista
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+    // Sparar favoriter till fil
+    private void saveFavoritesToFile() {
+        try {
+            objectMapper.writeValue(new File(FILE_PATH), favorites);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Hämtar alla favoriter
+    public List<Receipe> readFavorites() {
         return favorites;
     }
-    
+
+    // Lägg till ett favorit
+    public Receipe addFavorite(Receipe receipe) {
+        favorites.add(receipe);
+        saveFavoritesToFile(); // Spara tillbaka till filen
+        return receipe;
+    }
+
+    // Ta bort ett favorit
+    public boolean removeFavorite(int id) {
+        Optional<Receipe> receipe = favorites.stream()
+            .filter(f -> f.getId() == id)
+            .findFirst();
+
+        if (receipe.isPresent()) {
+            favorites.remove(receipe.get());
+            saveFavoritesToFile(); // Spara tillbaka till filen
+            return true;
+        }
+        return false;
+    }
 }
+
