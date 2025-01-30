@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class ReceipeService {
@@ -68,6 +68,19 @@ public class ReceipeService {
             saveFavoritesToFile();//Sparar till fil efter uppdatering
         }
         return removed;
+    }
+    //Ändra/uppdatera ett favorit, den fungerar inte i nuläget
+    public boolean updateFavorite(int id, Receipe updatedReceipe){
+        for (int i = 0; i < favorites.size(); i++){
+            Receipe existingReceipe = favorites.get(i);
+            if (existingReceipe.getId() == id){
+                //uppdaterar
+                favorites.set(i, updatedReceipe);
+                saveFavoritesToFile(); //Sparar i fil
+                return true;//true if lyckad uppdatering
+            }
+        }
+        return false; //Returnerar false om inte matchar
     }
 }
 
