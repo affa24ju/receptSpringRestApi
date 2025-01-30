@@ -18,7 +18,7 @@ import com.receptSpringRestApi.service.ReceipeService;
 
 @RestController
 @RequestMapping("/api/favorites")
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class ReceipeController {
 
 
@@ -48,7 +48,7 @@ public class ReceipeController {
     //Ändra på ett favorit
     @PutMapping("/{id}")
     public boolean updateFavorite(@PathVariable int id, @RequestBody Receipe updatedReceipe){
-        return receipeService.upateFavorite(id,updatedReceipe);
+        return receipeService.updateFavorite(id,updatedReceipe);
     }
     //test
     @GetMapping("/test")
