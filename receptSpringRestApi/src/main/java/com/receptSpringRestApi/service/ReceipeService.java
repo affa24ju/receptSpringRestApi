@@ -62,16 +62,12 @@ public class ReceipeService {
 
     // Ta bort ett favorit
     public boolean removeFavorite(int id) {
-        Optional<Receipe> receipe = favorites.stream()
-            .filter(f -> f.getId() == id)
-            .findFirst();
 
-        if (receipe.isPresent()) {
-            favorites.remove(receipe.get());
-            saveFavoritesToFile(); // Spara tillbaka till filen
-            return true;
+        boolean removed = favorites.removeIf(f -> f.getId() == id);
+        if (removed){
+            saveFavoritesToFile();//Sparar till fil efter uppdatering
         }
-        return false;
+        return removed;
     }
 }
 
