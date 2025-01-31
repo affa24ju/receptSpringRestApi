@@ -1,5 +1,5 @@
 package com.receptSpringRestApi.api.model;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 public class Receipe {
     private int id;
