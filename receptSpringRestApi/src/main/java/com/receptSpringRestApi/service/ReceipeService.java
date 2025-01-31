@@ -69,7 +69,8 @@ public class ReceipeService {
         }
         return removed;
     }
-    //Ändra/uppdatera ett favorit, den fungerar inte i nuläget
+    //Ändra/uppdatera ett favorit, håller på att bygga men inte färdigt än
+    //Kommenterat bort PutMapping från cnotroller
     public boolean updateFavorite(int id, Receipe updatedReceipe){
         for (int i = 0; i < favorites.size(); i++){
             Receipe existingReceipe = favorites.get(i);
