@@ -1,5 +1,4 @@
-#Read me
-#ReceptSpringRestAPI
+# ReceptSpringRestAPI
 Den här är ett API som kan lägga till data, hämta, ta bort och spara ett recept i json fil. Finns en model med attribute id, name, imageUrl och instructions. Frontenden utvecklats seperat.
 
 ## Byggts med
